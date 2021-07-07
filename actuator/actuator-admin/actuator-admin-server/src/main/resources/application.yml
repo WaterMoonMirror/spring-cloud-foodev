@@ -1,0 +1,21 @@
+# 端口号
+server:
+  port: 30011
+# 服务名称
+spring:
+  application:
+    name: actuator-admin-server
+# eureka server 配置（单服务配置）
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:30001/eureka/
+# actuator 暴露全部端口 （开发时配置）
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
