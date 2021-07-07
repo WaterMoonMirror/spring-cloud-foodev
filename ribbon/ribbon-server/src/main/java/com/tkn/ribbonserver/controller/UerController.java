@@ -4,6 +4,7 @@ import com.tkn.ribbonserver.entity.User;
 import com.tkn.ribbonserver.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UerController {
+
+    @Autowired
+    private ServletWebServerApplicationContext webServerAppCtxt;
     @Value("${server.port}")
     public String port;
     @Autowired
@@ -33,7 +37,8 @@ public class UerController {
     }
     @GetMapping("/port")
     public String port(){
-        return port;
+
+        return String.valueOf(webServerAppCtxt.getWebServer().getPort()) ;
     }
 
 }
