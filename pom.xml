@@ -17,6 +17,9 @@
         <module>actuator/actuator-admin/actuator-admin-server</module>
         <module>ribbon/ribbon-server</module>
         <module>ribbon/ribbon-client</module>
+        <module>feign/feign-server-intf</module>
+        <module>feign/feigh-server</module>
+        <module>feign/feign-client</module>
     </modules>
     <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>
