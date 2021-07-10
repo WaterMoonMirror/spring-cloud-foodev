@@ -1,5 +1,6 @@
 package com.tkn.hystrixfailback.hystrix;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.tkn.feignserverintf.service.IUserservice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,5 +27,27 @@ public class UserFallback  implements MyService {
     @Override
     public String erro(Integer timeout) {
         return "this‘s is fallback!";
+    }
+
+    /**
+     * 多级降级
+     *
+     * @return
+     */
+    @Override
+    @HystrixCommand(fallbackMethod = "fallback2")
+    public String chainerro() {
+        log.info("Fallback: I'm not a black sheep any more");
+        throw new RuntimeException("first fallback");
+    }
+    @HystrixCommand(fallbackMethod = "fallback3")
+    public String fallback2() {
+        log.info("fallback again");
+        throw new RuntimeException("fallback again");
+    }
+
+    public String fallback3() {
+        log.info("fallback again and again");
+        return "success";
     }
 }

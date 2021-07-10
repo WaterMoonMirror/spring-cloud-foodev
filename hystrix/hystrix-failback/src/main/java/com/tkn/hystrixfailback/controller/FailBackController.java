@@ -32,4 +32,14 @@ public class FailBackController implements IUserservice {
     public String erro(Integer timeout) {
         return myService.erro(timeout);
     }
+
+    /**
+     * 多级降级
+     *
+     * @return
+     */
+    @Override
+    public String chainerro() {
+      return myService.chainerro();
+    }
 }

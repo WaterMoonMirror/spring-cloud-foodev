@@ -22,4 +22,11 @@ public interface IUserservice {
      */
     @GetMapping("/erro")
      String erro(@RequestParam(name = "timeout") Integer timeout);
+
+    /**
+     *  多级降级
+     * @return
+     */
+    @GetMapping("/chainerro")
+    String chainerro();
 }

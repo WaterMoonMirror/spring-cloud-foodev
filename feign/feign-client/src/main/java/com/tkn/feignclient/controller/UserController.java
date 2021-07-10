@@ -35,4 +35,14 @@ public class UserController implements IUserservice {
         }
         return iUserservice.port();
     }
+
+    /**
+     * 多级降级
+     *
+     * @return
+     */
+    @Override
+    public String chainerro() {
+        return null;
+    }
 }

@@ -37,4 +37,15 @@ public class Userservice implements IUserservice {
         }
         return String.valueOf(webServerAppCtxt.getWebServer().getPort()) ;
     }
+
+    /**
+     * 多级降级
+     *
+     * @return
+     */
+    @Override
+    public String chainerro() {
+        log.info("test chain erro");
+        throw  new RuntimeException("test chain erro");
+    }
 }
