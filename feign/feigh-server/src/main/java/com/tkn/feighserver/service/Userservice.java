@@ -1,6 +1,10 @@
 package com.tkn.feighserver.service;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONString;
+import cn.hutool.json.JSONUtil;
 import com.tkn.feignserverintf.service.IUserservice;
+import com.tkn.feignserverintf.service.User;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +51,11 @@ public class Userservice implements IUserservice {
     public String chainerro() {
         log.info("test chain erro");
         throw  new RuntimeException("test chain erro");
+    }
+
+    @Override
+    public User list(User user) {
+        log.info(JSONUtil.toJsonStr(user));
+        return user;
     }
 }

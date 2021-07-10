@@ -1,9 +1,7 @@
 package com.tkn.feignserverintf.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: lizhu@wondesgroup.com
@@ -29,4 +27,8 @@ public interface IUserservice {
      */
     @GetMapping("/chainerro")
     String chainerro();
+
+    @PostMapping("/list")
+    User list(@RequestBody  User user);
+
 }

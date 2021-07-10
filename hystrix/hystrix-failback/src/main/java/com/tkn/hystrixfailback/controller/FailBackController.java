@@ -1,8 +1,12 @@
 package com.tkn.hystrixfailback.controller;
 
+import com.netflix.hystrix.strategy.concurrency.HystrixRequestContext;
 import com.tkn.feignserverintf.service.IUserservice;
+import com.tkn.feignserverintf.service.User;
 import com.tkn.hystrixfailback.hystrix.MyService;
+import lombok.Cleanup;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class FailBackController implements IUserservice {
     @Autowired
     MyService myService;
+
+    @Autowired
+    RequestCacheService requestCacheService;
 
     @Override
     public String port() {
@@ -41,5 +48,21 @@ public class FailBackController implements IUserservice {
     @Override
     public String chainerro() {
       return myService.chainerro();
+    }
+
+    @Override
+    public User list(User user) {
+        return myService.list(user);
+    }
+
+    @GetMapping("/cache")
+    public User cache(String name) {
+        @Cleanup HystrixRequestContext context =
+                HystrixRequestContext.initializeContext();
+
+        User friend = requestCacheService.list(name);
+         friend = requestCacheService.list(name);
+        friend = requestCacheService.list(name);
+        return friend;
     }
 }

@@ -1,6 +1,7 @@
 package com.tkn.feignclient.controller;
 
 import com.tkn.feignserverintf.service.IUserservice;
+import com.tkn.feignserverintf.service.User;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,11 @@ public class UserController implements IUserservice {
      */
     @Override
     public String chainerro() {
+        return null;
+    }
+
+    @Override
+    public User list(User user) {
         return null;
     }
 }

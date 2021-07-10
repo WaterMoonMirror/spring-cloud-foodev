@@ -2,6 +2,7 @@ package com.tkn.hystrixfailback.hystrix;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.tkn.feignserverintf.service.IUserservice;
+import com.tkn.feignserverintf.service.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -40,6 +41,12 @@ public class UserFallback  implements MyService {
         log.info("Fallback: I'm not a black sheep any more");
         throw new RuntimeException("first fallback");
     }
+
+    @Override
+    public User list(User user) {
+        return null;
+    }
+
     @HystrixCommand(fallbackMethod = "fallback3")
     public String fallback2() {
         log.info("fallback again");
