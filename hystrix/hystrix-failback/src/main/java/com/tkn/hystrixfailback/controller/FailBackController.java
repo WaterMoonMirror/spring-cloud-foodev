@@ -1,24 +1,25 @@
-package com.tkn.feignclient.controller;
+package com.tkn.hystrixfailback.controller;
 
 import com.tkn.feignserverintf.service.IUserservice;
-import lombok.SneakyThrows;
+import com.tkn.hystrixfailback.hystrix.MyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author: lizhu@wondesgroup.com
- * @date: 2021/7/8 16:50
+ * @date: 2021/7/9 10:46
  * @description:
  */
 @RestController
-@RequestMapping("/user")
-public class UserController implements IUserservice {
+@RequestMapping("/fail")
+public class FailBackController implements IUserservice {
     @Autowired
-    IUserservice iUserservice;
+    MyService myService;
+
     @Override
     public String port() {
-        return iUserservice.port();
+        return myService.port();
     }
 
     /**
@@ -27,12 +28,8 @@ public class UserController implements IUserservice {
      * @param timeout
      * @return
      */
-    @SneakyThrows
     @Override
     public String erro(Integer timeout) {
-        while (timeout-- >=0){
-            Thread.sleep(1000);
-        }
-        return iUserservice.port();
+        return myService.erro(timeout);
     }
 }

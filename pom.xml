@@ -20,6 +20,7 @@
         <module>feign/feign-server-intf</module>
         <module>feign/feigh-server</module>
         <module>feign/feign-client</module>
+        <module>hystrix/hystrix-failback</module>
     </modules>
     <packaging>pom</packaging>
     <description>Demo project for Spring Boot</description>

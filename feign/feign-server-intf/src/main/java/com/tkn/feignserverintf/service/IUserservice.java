@@ -2,6 +2,8 @@ package com.tkn.feignserverintf.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author: lizhu@wondesgroup.com
@@ -12,4 +14,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public interface IUserservice {
     @GetMapping("/port")
      String port();
+
+    /**
+     *  测试超时降级服务
+     * @param timeout
+     * @return
+     */
+    @GetMapping("/erro")
+     String erro(@RequestParam(name = "timeout") Integer timeout);
 }

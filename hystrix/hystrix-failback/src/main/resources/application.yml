@@ -1,0 +1,67 @@
+# \u7AEF\u53E3\u53F7
+server:
+  port: 30041
+# \u670D\u52A1\u540D\u79F0
+spring:
+  application:
+    name: hystrix-failback
+    # 需要bean重载
+  main:
+    allow-bean-definition-overriding: true
+# eureka server \u914D\u7F6E\uFF08\u5355\u670D\u52A1\u914D\u7F6E\uFF09
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:30001/eureka/
+# actuator \u66B4\u9732\u5168\u90E8\u7AEF\u53E3 \uFF08\u5F00\u53D1\u65F6\u914D\u7F6E\uFF09
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+# ribbon 单服务配置负载均衡策略
+#ribbon-server:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.tkn.ribbonclient.rules.Myrule
+
+# 开启Feign下面的Hystrix功能
+feign:
+  hystrix:
+    enabled: true
+## 是否开启服务降级
+#hystrix:
+#  command.default.fallback.enabled: true
+## 全局超时
+#  command.default.execution.timeout.enabled: true
+## 超时时间
+#  command.default.execution.isolation.thread.timeoutInMilliseconds: 3000
+## 超时以后终止线程
+#  command.default.execution.isolation.thread.interruptOnTimeout: true
+## 取消的时候终止线程
+#  command.default.execution.isolation.thread.interruptOnFutureCancel: true
+## hystrix.command.MyService#retry(int).execution.isolation.thread.timeoutInMilliseconds=3000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            interruptOnFutureCancel: true
+            interruptOnTimeout: true
+            timeoutInMilliseconds: 3000
+        timeout:
+          enabled: true
+      fallback:
+        enabled: true
+
+feign-server:
+  ribbon:
+    ConnectTimeout: 4000
+    MaxAutoRetries: 0
+    MaxAutoRetriesNextServer: 0
+    OkToRetryOnAllOperations: false
+    ReadTimeout: 8000
