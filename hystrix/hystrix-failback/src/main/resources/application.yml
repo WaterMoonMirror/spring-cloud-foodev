@@ -50,18 +50,44 @@ hystrix:
       execution:
         isolation:
           thread:
+            # 取消的时候终止线程
             interruptOnFutureCancel: true
+            # 超时以后终止线程
             interruptOnTimeout: true
-            timeoutInMilliseconds: 3000
+            # 超时时间
+            timeoutInMilliseconds: 1000
         timeout:
+          # 全局超时
           enabled: true
       fallback:
+        # 是否开启服务降级
         enabled: true
-
+      circuitBreaker:
+        # 开启熔断器功能
+        enabled: true
+        # 超过50%的失败请求，则熔断开关开启
+        errorThresholdPercentage: 50
+        # 强制关闭熔断开关
+        forceClosed: false
+        # 强制开启熔断开关
+        forceOpen: false
+        # 熔断的前提条件（请求的数量），在一定的时间窗口内，请求达到5个以后，才开始进行熔断判断
+        requestVolumeThreshold: 5
+        # 当熔断开启以后，经过多少秒再进入半开状态
+        sleepWindowInMilliseconds: 15000
+      metrics:
+        rollingStats:
+          # 配置时间窗口
+          timeInMilliseconds: 20000
 feign-server:
   ribbon:
+    # 连接超时
     ConnectTimeout: 4000
+    # 每台机器最大重试次数
     MaxAutoRetries: 0
+    # 可以再重试几台机器
     MaxAutoRetriesNextServer: 0
+    # 在所有HTTP Method进行重试
     OkToRetryOnAllOperations: false
+    # 业务处理超时
     ReadTimeout: 8000
