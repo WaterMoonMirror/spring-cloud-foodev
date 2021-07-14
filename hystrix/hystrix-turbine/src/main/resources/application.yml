@@ -1,0 +1,38 @@
+# \u7AEF\u53E3\u53F7
+server:
+  port: 30042
+# \u670D\u52A1\u540D\u79F0
+spring:
+  application:
+    name: hystrix-turbine
+    # 需要bean重载
+  main:
+    allow-bean-definition-overriding: true
+# eureka server \u914D\u7F6E\uFF08\u5355\u670D\u52A1\u914D\u7F6E\uFF09
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:30001/eureka/
+# actuator \u66B4\u9732\u5168\u90E8\u7AEF\u53E3 \uFF08\u5F00\u53D1\u65F6\u914D\u7F6E\uFF09
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+      ## 调度服务端口
+  server:
+    port: 50042
+    # 指定
+turbine:
+  app-config: hystrix-failback
+  # 集群名
+  cluster-name-expression: '"default"'
+  # 将端口和hostname作为区分不同服务的条件（默认只使用host）
+  combine-host-port: true
+  aggregator:
+    cluster-config: default
+  instanceUrlsuffix:
+    default: actuator/hystrix2.steam

@@ -22,6 +22,8 @@ management:
   endpoint:
     health:
       show-details: always
+  security:
+    enabled: false
 # ribbon 单服务配置负载均衡策略
 #ribbon-server:
 #  ribbon:
